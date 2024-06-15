@@ -4,6 +4,7 @@ using FlaUI.Core.Conditions;
 using FlaUI.Core.Definitions;
 using FlaUI.UIA3.Identifiers;
 using Mortise.Accessibility.Abstractions;
+using Mortise.UIAAccessibility;
 using Tenon.Mapper.Abstractions;
 using Tenon.Serialization.Abstractions;
 using Tenon.Windows.Extensions;
@@ -18,9 +19,9 @@ public class UiaAccessible : Accessible
     protected readonly ISerializer Serializer;
 
     public UiaAccessible(IObjectMapper mapper,
-        ISerializer serializer)
+        ISerializer serializer, IEnumerable<IUiaAccessibleIdentity> uiaAccessibleIdentities)
     {
-        Identity = new UiaAccessibleIdentity(mapper);
+        Identity = new UiaAccessibleIdentity(mapper, uiaAccessibleIdentities);
         Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         Serializer = serializer;
         Provider = AccessibilityProvider.Uia;

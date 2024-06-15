@@ -5,32 +5,34 @@ using FlaUI.Core.AutomationElements;
 using FlaUI.UIA3;
 using Mortise.Accessibility.Abstractions;
 using Mortise.UIAAccessibility;
-using Tenon.Helper.Internal;
 using Tenon.Mapper.Abstractions;
 
 namespace Mortise.UiaAccessibility;
 
 public class UiaAccessibleIdentity : AccessibleIdentity
 {
-    public static readonly Dictionary<string, IUiaAccessibleIdentity> AccessibilityIdentities;
+    public readonly Dictionary<string, IUiaAccessibleIdentity> AccessibilityIdentities;
     public readonly UIA3Automation Automation = new();
     public readonly AutomationElement DesktopElement;
     protected readonly IObjectMapper Mapper;
     public readonly ITreeWalker TreeWalker;
 
-    static UiaAccessibleIdentity()
-    {
-        AccessibilityIdentities = ReflectHelper
-            .CreateInterfaceTypeInstances<IUiaAccessibleIdentity>()
-            .ToDictionary(key => key.Metadata.IdentityString, value => value);
-    }
+    //static UiaAccessibleIdentity()
+    //{
+    //    AccessibilityIdentities = ReflectHelper
+    //        .CreateInterfaceTypeInstances<IUiaAccessibleIdentity>()
+    //        .ToDictionary(key => key.Metadata.IdentityString, value => value);
+    //}
 
-    public UiaAccessibleIdentity(IObjectMapper mapper)
+    public UiaAccessibleIdentity(IObjectMapper mapper, IEnumerable<IUiaAccessibleIdentity> uiaAccessibleIdentities)
     {
-        Mapper = mapper;
+        Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         TreeWalker = Automation.TreeWalkerFactory.GetControlViewWalker();
         DesktopElement = Automation.GetDesktop();
         Priority = AccessiblePriority.Highest;
+        if (AccessibilityIdentities?.Any() ?? false)
+            AccessibilityIdentities =
+                uiaAccessibleIdentities.ToDictionary(key => key.Metadata.IdentityString, value => value);
     }
 
     public override AccessibleComponent? FromPoint(Point location)
