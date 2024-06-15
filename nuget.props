@@ -7,9 +7,11 @@
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>	
-		<PackageTags>automation,framework,Accessible</PackageTags>
+		<PackageTags>automation,framework,accessible</PackageTags>
 		<RepositoryUrl>https://github.com/YanZhiwei/Mortise</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/YanZhiwei/Mortise</PackageProjectUrl>
+		<RepositoryType>git</RepositoryType>
+		<Description>UI Automation Framework</Description>
 	</PropertyGroup>
 	<ItemGroup  Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
