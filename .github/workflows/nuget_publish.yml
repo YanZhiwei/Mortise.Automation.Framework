@@ -17,9 +17,9 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Build with dotnet
-      run: dotnet build --configuration Release  D:/a/Mortise/Mortise/src/Mortise.sln
+      run: dotnet build --configuration Release  D:/a/Mortise/Mortise/Mortise.sln
     - name: Pack with dotnet
-      run: dotnet pack  D:/a/Mortise/Mortise/src/Mortise.sln -o  D:/a/nugetpkgs -c Release --no-build
+      run: dotnet pack  D:/a/Mortise/Mortise/Mortise.sln -o  D:/a/nugetpkgs -c Release --no-build
     - name: Upload artifact
       uses: actions/upload-artifact@v1
       with:
