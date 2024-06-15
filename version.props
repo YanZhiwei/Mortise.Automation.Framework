@@ -1,0 +1,9 @@
+<Project>
+	<PropertyGroup>
+		<VersionMajor>0</VersionMajor>
+		<VersionMinor>0</VersionMinor>
+		<VersionPatch>1</VersionPatch>
+		<VersionSuffix>$([System.DateTime]::UtcNow.ToString(yyyyMMddHHmm))</VersionSuffix>
+		<VersionPrefix>$(VersionMajor).$(VersionMinor).$(VersionPatch)-alpha</VersionPrefix>
+	</PropertyGroup>
+</Project>
