@@ -9,7 +9,7 @@ namespace Mortise.UiaAccessibility.Extensions;
 
 public static class ServiceCollectionExtension
 {
-    public static IServiceCollection AddUiaAccessibility(this IServiceCollection services,
+    public static IServiceCollection AddUiaAccessible(this IServiceCollection services,
         Action<UiaAccessibleOptions> setupAction)
     {
         if (setupAction == null)
