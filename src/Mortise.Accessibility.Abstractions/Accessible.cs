@@ -14,6 +14,8 @@ public abstract class Accessible
 
     [JsonInclude] public AccessibleComponentStack<AccessibleComponent> Components { get; protected set; }
 
+    [JsonInclude] public AccessibleIdentity Identity { get; protected set; }
+
     public abstract void Record(object component);
 
     public abstract AccessibleComponent? FindComponent(string locatorPath);
