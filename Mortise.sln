@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mortise.Accessibility.Abstractions", "src\Mortise.Accessibility.Abstractions\Mortise.Accessibility.Abstractions.csproj", "{BF544747-9B9F-4C0D-AB67-7367E5199825}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mortise.Accessibility.Abstractions", "src\Mortise.Accessibility.Abstractions\Mortise.Accessibility.Abstractions.csproj", "{BF544747-9B9F-4C0D-AB67-7367E5199825}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UIA", "UIA", "{7033CDE1-20E2-4531-B108-FB8EF2D6F215}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mortise.UiaAccessibility", "src\UIA\Mortise.UIAAccessibility\Mortise.UiaAccessibility.csproj", "{9E6CB46F-0932-4938-80AE-DD71C42DB280}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mortise.UiaAccessibility", "src\UIA\Mortise.UIAAccessibility\Mortise.UiaAccessibility.csproj", "{9E6CB46F-0932-4938-80AE-DD71C42DB280}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mortise.UiaAccessibility.WeChat", "src\UIA\Mortise.UiaAccessibility.WeChat\Mortise.UiaAccessibility.WeChat.csproj", "{A2BB9733-EB14-4535-9623-9DD96BE33684}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mortise.UiaAccessibility.WeChat", "src\UIA\Mortise.UiaAccessibility.WeChat\Mortise.UiaAccessibility.WeChat.csproj", "{A2BB9733-EB14-4535-9623-9DD96BE33684}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B524BD24-3F72-4EB9-A3ED-EFBD39D86211}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mortise.UiaAccessibilityTests", "test\Mortise.UiaAccessibilityTests\Mortise.UiaAccessibilityTests.csproj", "{2F9B1F30-F7BC-416C-BC2D-44FDC7D24FCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +33,10 @@ Global
 		{A2BB9733-EB14-4535-9623-9DD96BE33684}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2BB9733-EB14-4535-9623-9DD96BE33684}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2BB9733-EB14-4535-9623-9DD96BE33684}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F9B1F30-F7BC-416C-BC2D-44FDC7D24FCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F9B1F30-F7BC-416C-BC2D-44FDC7D24FCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F9B1F30-F7BC-416C-BC2D-44FDC7D24FCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F9B1F30-F7BC-416C-BC2D-44FDC7D24FCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,6 +44,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9E6CB46F-0932-4938-80AE-DD71C42DB280} = {7033CDE1-20E2-4531-B108-FB8EF2D6F215}
 		{A2BB9733-EB14-4535-9623-9DD96BE33684} = {7033CDE1-20E2-4531-B108-FB8EF2D6F215}
+		{2F9B1F30-F7BC-416C-BC2D-44FDC7D24FCF} = {B524BD24-3F72-4EB9-A3ED-EFBD39D86211}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B2EB6DC1-0698-48D8-AD43-BFE923CC54EB}
