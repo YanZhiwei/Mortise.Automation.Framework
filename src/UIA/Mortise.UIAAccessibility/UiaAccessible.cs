@@ -14,14 +14,15 @@ namespace Mortise.UiaAccessibility;
 [Serializable]
 public class UiaAccessible : Accessible
 {
-    public readonly UiaAccessibleIdentity Identity;
     protected readonly IObjectMapper Mapper;
+    public readonly UiaAccessibleIdentity NativeIdentity;
     protected readonly ISerializer Serializer;
 
     public UiaAccessible(IObjectMapper mapper,
         ISerializer serializer, IEnumerable<IUiaAccessibleIdentity> uiaAccessibleIdentities)
     {
         Identity = new UiaAccessibleIdentity(mapper, uiaAccessibleIdentities);
+        NativeIdentity = (UiaAccessibleIdentity) Identity;
         Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         Serializer = serializer;
         Provider = AccessibilityProvider.Uia;
@@ -43,8 +44,8 @@ public class UiaAccessible : Accessible
             mainWindowHandle = process.FindFirstCoreWindows();
 
         return mainWindowHandle == IntPtr.Zero
-            ? Identity.DesktopElement
-            : Identity.Automation.FromHandle(mainWindowHandle);
+            ? NativeIdentity.DesktopElement
+            : NativeIdentity.Automation.FromHandle(mainWindowHandle);
     }
 
     public override void Record(object component)
@@ -56,10 +57,10 @@ public class UiaAccessible : Accessible
         uiaComponents.Push(Identity.DtoAccessibleComponent(currentComponent, this)!);
         while (currentComponent.Parent != null)
         {
-            if (currentComponent.Parent.Equals(Identity.DesktopElement))
+            if (currentComponent.Parent.Equals(NativeIdentity.DesktopElement))
                 break;
-            currentComponent = Identity.TreeWalker.GetParent(currentComponent);
-            uiaComponents.Push(Identity.DtoAccessibleComponent(currentComponent, this)!);
+            currentComponent = NativeIdentity.TreeWalker.GetParent(currentComponent);
+            uiaComponents.Push(NativeIdentity.DtoAccessibleComponent(currentComponent, this)!);
         }
 
         Components = uiaComponents;
@@ -80,7 +81,7 @@ public class UiaAccessible : Accessible
             foundElement = parentElement.FindFirstDescendant(condition);
             if (foundElement == null)
             {
-                parentElement = Identity.TreeWalker.GetParent(parentElement);
+                parentElement = NativeIdentity.TreeWalker.GetParent(parentElement);
                 foundElement = parentElement.FindFirstChild(condition);
             }
 

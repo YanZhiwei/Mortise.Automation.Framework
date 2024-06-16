@@ -11,28 +11,21 @@ namespace Mortise.UiaAccessibility;
 
 public class UiaAccessibleIdentity : AccessibleIdentity
 {
-    public readonly Dictionary<string, IUiaAccessibleIdentity> AccessibilityIdentities;
+    public readonly Dictionary<string, IUiaAccessibleIdentity> Applications;
     public readonly UIA3Automation Automation = new();
     public readonly AutomationElement DesktopElement;
     protected readonly IObjectMapper Mapper;
     public readonly ITreeWalker TreeWalker;
 
-    //static UiaAccessibleIdentity()
-    //{
-    //    AccessibilityIdentities = ReflectHelper
-    //        .CreateInterfaceTypeInstances<IUiaAccessibleIdentity>()
-    //        .ToDictionary(key => key.Metadata.IdentityString, value => value);
-    //}
-
-    public UiaAccessibleIdentity(IObjectMapper mapper, IEnumerable<IUiaAccessibleIdentity> uiaAccessibleIdentities)
+    public UiaAccessibleIdentity(IObjectMapper mapper, IEnumerable<IUiaAccessibleIdentity> appAccessible)
     {
         Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         TreeWalker = Automation.TreeWalkerFactory.GetControlViewWalker();
         DesktopElement = Automation.GetDesktop();
         Priority = AccessiblePriority.Highest;
-        if (AccessibilityIdentities?.Any() ?? false)
-            AccessibilityIdentities =
-                uiaAccessibleIdentities.ToDictionary(key => key.Metadata.IdentityString, value => value);
+        if (appAccessible?.Any() ?? false)
+            Applications =
+                appAccessible.ToDictionary(key => key.Metadata.IdentityString, value => value);
     }
 
     public override AccessibleComponent? FromPoint(Point location)
@@ -43,10 +36,10 @@ public class UiaAccessibleIdentity : AccessibleIdentity
         TreeWalker.GetParent(hoveredElement);
         var processName = Process.GetProcessById(hoveredElement.Properties.ProcessId).ProcessName;
         var findKey =
-            AccessibilityIdentities.Keys.FirstOrDefault(c =>
+            Applications?.Keys?.FirstOrDefault(c =>
                 c.Contains(processName, StringComparison.OrdinalIgnoreCase));
         if (!string.IsNullOrEmpty(findKey))
-            hoveredElement = AccessibilityIdentities[findKey]
+            hoveredElement = Applications[findKey]
                 .FromHoveredElement(location, hoveredElement, TreeWalker);
         return DtoAccessibleComponent(hoveredElement);
     }

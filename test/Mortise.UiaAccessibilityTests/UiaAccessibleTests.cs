@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mortise.Accessibility.Abstractions;
+using Mortise.UiaAccessibility;
 using Mortise.UiaAccessibility.Extensions;
 using Mortise.UiaAccessibility.WeChat.Configurations;
 
@@ -25,6 +26,10 @@ public class UiaAccessibleTests
         {
             var uiaAccessible = scope.ServiceProvider.GetService<Accessible>();
             Assert.IsNotNull(uiaAccessible);
+            Assert.IsNotNull(uiaAccessible.Identity);
+            var nativeIdentity = uiaAccessible.Identity as UiaAccessibleIdentity;
+            Assert.IsNotNull(nativeIdentity);
+            Assert.IsNotNull(nativeIdentity.Applications);
         }
     }
 }
