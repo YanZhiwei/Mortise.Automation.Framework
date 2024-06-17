@@ -47,7 +47,7 @@ public class UiaAccessibleIdentity : AccessibleIdentity
     public override AccessibleComponent? DtoAccessibleComponent(object element, Accessible? accessibility = null)
     {
         if (element is not AutomationElement automationElement) return null;
-        return new AccessibleComponent
+        return new UiaAccessibleComponent
         {
             Name = automationElement.Properties.Name.ValueOrDefault,
             ActualWidth = automationElement.ActualWidth,
@@ -59,7 +59,9 @@ public class UiaAccessibleIdentity : AccessibleIdentity
             IsDialog = automationElement.Properties.IsDialog.ValueOrDefault,
             NativeElement = automationElement,
             ControlType = Mapper.Map<AccessibleControlType>(automationElement.ControlType),
-            Accessible = accessibility
+            Accessible = accessibility,
+            ClassName = automationElement.ClassName,
+            IsPassword = automationElement.Properties.IsPassword.ValueOrDefault
         };
     }
 }

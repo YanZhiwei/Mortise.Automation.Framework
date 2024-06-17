@@ -5,6 +5,7 @@ namespace Mortise.UiaAccessibility;
 
 public class UiaAccessibleComponent : AccessibleComponent, IAccessibleAction
 {
+    public string ClassName { get; set; }
     public void Click()
     {
         CheckNativeElement(out var automationElement);
@@ -16,5 +17,13 @@ public class UiaAccessibleComponent : AccessibleComponent, IAccessibleAction
         if (NativeElement is not AutomationElement uiaElement)
             throw new InvalidOperationException(nameof(Click));
         automationElement = uiaElement;
+    }
+
+    protected override string? GenerateUniqueId()
+    {
+        UniqueId = base.GenerateUniqueId();
+        if (string.IsNullOrWhiteSpace(UniqueId))
+            return ClassName;
+        return ControlType.ToString();
     }
 }
