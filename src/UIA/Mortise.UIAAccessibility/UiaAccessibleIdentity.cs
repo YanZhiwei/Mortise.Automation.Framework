@@ -60,7 +60,7 @@ public class UiaAccessibleIdentity : AccessibleIdentity
             NativeElement = automationElement,
             ControlType = Mapper.Map<AccessibleControlType>(automationElement.ControlType),
             Accessible = accessibility,
-            ClassName = automationElement.ClassName,
+            ClassName = automationElement.Properties.ClassName.ValueOrDefault,
             IsPassword = automationElement.Properties.IsPassword.ValueOrDefault
         };
     }

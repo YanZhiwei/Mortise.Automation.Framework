@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Conditions;
 using FlaUI.Core.Definitions;
@@ -22,7 +23,7 @@ public class UiaAccessible : Accessible
         ISerializer serializer, IEnumerable<IUiaAccessibleIdentity> uiaAccessibleIdentities)
     {
         Identity = new UiaAccessibleIdentity(mapper, uiaAccessibleIdentities);
-        NativeIdentity = (UiaAccessibleIdentity) Identity;
+        NativeIdentity = (UiaAccessibleIdentity)Identity;
         Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         Serializer = serializer;
         Provider = AccessibilityProvider.Uia;
@@ -109,15 +110,21 @@ public class UiaAccessible : Accessible
 
     protected virtual ConditionBase CreateCondition(AccessibleComponent component)
     {
+        if (component is not UiaAccessibleComponent uiaComponent)
+            throw new InvalidOperationException(nameof(component));
         var conditions = new ConditionBase[]
         {
             !string.IsNullOrEmpty(component.Id)
                 ? new PropertyCondition(AutomationObjectIds.AutomationIdProperty, component.Id)
                 : new PropertyCondition(AutomationObjectIds.AutomationIdProperty, ""),
+            !string.IsNullOrEmpty(uiaComponent.ClassName)
+                ? new PropertyCondition(AutomationObjectIds.ClassNameProperty, uiaComponent.ClassName)
+                : new PropertyCondition(AutomationObjectIds.ClassNameProperty, ""),
             !string.IsNullOrEmpty(component.Name)
                 ? new PropertyCondition(AutomationObjectIds.NameProperty, component.Name)
                 : new PropertyCondition(AutomationObjectIds.NameProperty, ""),
             new PropertyCondition(AutomationObjectIds.IsDialogProperty, component.IsDialog),
+            new PropertyCondition(AutomationObjectIds.IsPasswordProperty, component.IsPassword),
             new PropertyCondition(AutomationObjectIds.ControlTypeProperty,
                 Mapper.Map<ControlType>(component.ControlType))
         };

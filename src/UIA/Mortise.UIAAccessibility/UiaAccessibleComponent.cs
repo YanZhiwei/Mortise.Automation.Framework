@@ -1,7 +1,9 @@
-﻿using FlaUI.Core.AutomationElements;
+﻿using System.Text.Json.Serialization;
+using FlaUI.Core.AutomationElements;
 using Mortise.Accessibility.Abstractions;
 
 namespace Mortise.UiaAccessibility;
+
 
 public class UiaAccessibleComponent : AccessibleComponent, IAccessibleAction
 {
@@ -25,5 +27,10 @@ public class UiaAccessibleComponent : AccessibleComponent, IAccessibleAction
         if (string.IsNullOrWhiteSpace(UniqueId))
             return ClassName;
         return ControlType.ToString();
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Id, Name, ControlType, ClassName, IsDialog);
     }
 }
