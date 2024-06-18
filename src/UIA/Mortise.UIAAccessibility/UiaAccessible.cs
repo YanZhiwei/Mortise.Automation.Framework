@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Conditions;
 using FlaUI.Core.Definitions;
@@ -65,14 +64,15 @@ public class UiaAccessible : Accessible
         }
 
         Components = uiaComponents;
+        UniqueId = GenerateUniqueId();
     }
 
-    public override AccessibleComponent? FindComponent(string locatorPath)
+    public override AccessibleComponent? FindComponent(string locatorString)
     {
-        if (string.IsNullOrEmpty(locatorPath))
-            throw new ArgumentNullException(nameof(locatorPath));
+        if (string.IsNullOrWhiteSpace(locatorString))
+            throw new ArgumentNullException(nameof(locatorString));
 
-        var uiaAccessible = Serializer.DeserializeObject<UiaAccessible>(locatorPath);
+        var uiaAccessible = Serializer.DeserializeObject<UiaAccessible>(locatorString);
         AutomationElement? foundElement = null;
         var parentElement = GetWindowElement(uiaAccessible.FileName);
         var recordElements = new Stack<AccessibleComponent>(uiaAccessible.Components);
@@ -106,6 +106,24 @@ public class UiaAccessible : Accessible
     public override void Close()
     {
         throw new NotImplementedException();
+    }
+
+    protected override string GenerateUniqueId()
+    {
+        if (string.IsNullOrWhiteSpace(FileName))
+            throw new ArgumentNullException(nameof(FileName));
+        if (!(Components?.Any() ?? false))
+            throw new InvalidOperationException(nameof(Components));
+        if (Components.Last() is not UiaAccessibleComponent lastComponent)
+            throw new NotSupportedException(nameof(Components));
+        if (!string.IsNullOrWhiteSpace(lastComponent.Id))
+            return $"{FileName}|{lastComponent.Id}";
+        if (!string.IsNullOrWhiteSpace(lastComponent.Name))
+            return $"{FileName}|{lastComponent.Name}";
+        if (!string.IsNullOrWhiteSpace(lastComponent.ClassName))
+            return $"{FileName}|{lastComponent.ClassName}";
+        return $"{FileName}|{lastComponent.ControlType}|{lastComponent.GetHashCode()}";
+
     }
 
     protected virtual ConditionBase CreateCondition(AccessibleComponent component)

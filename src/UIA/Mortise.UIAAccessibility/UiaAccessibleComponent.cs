@@ -1,13 +1,12 @@
-﻿using System.Text.Json.Serialization;
-using FlaUI.Core.AutomationElements;
+﻿using FlaUI.Core.AutomationElements;
 using Mortise.Accessibility.Abstractions;
 
 namespace Mortise.UiaAccessibility;
 
-
 public class UiaAccessibleComponent : AccessibleComponent, IAccessibleAction
 {
     public string ClassName { get; set; }
+
     public void Click()
     {
         CheckNativeElement(out var automationElement);
@@ -21,16 +20,8 @@ public class UiaAccessibleComponent : AccessibleComponent, IAccessibleAction
         automationElement = uiaElement;
     }
 
-    protected override string? GenerateUniqueId()
-    {
-        UniqueId = base.GenerateUniqueId();
-        if (string.IsNullOrWhiteSpace(UniqueId))
-            return ClassName;
-        return ControlType.ToString();
-    }
-
     public override int GetHashCode()
     {
-        return HashCode.Combine(Id, Name, ControlType, ClassName, IsDialog);
+        return HashCode.Combine(Id, Name, ControlType, ClassName, IsPassword, IsDialog);
     }
 }

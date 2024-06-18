@@ -27,21 +27,10 @@ public class AccessibleComponent
 
     [JsonIgnore] public object NativeElement { get; set; }
 
-    [JsonIgnore] public string UniqueId { get; protected set; }
-
     public bool IsPassword { get; set; }
 
     public override int GetHashCode()
     {
         return HashCode.Combine(Id, Name, ControlType, IsDialog);
-    }
-
-    protected virtual string? GenerateUniqueId()
-    {
-        if (!string.IsNullOrWhiteSpace(Id))
-            return Id;
-        if (!string.IsNullOrWhiteSpace(Name))
-            return Name;
-        return null;
     }
 }
