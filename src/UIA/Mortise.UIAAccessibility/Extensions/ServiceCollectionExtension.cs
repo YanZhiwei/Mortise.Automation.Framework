@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Mortise.Accessibility.Abstractions;
 using Mortise.UiaAccessibility.Configurations;
+using Mortise.UiaAccessibility.Converters;
 using Tenon.Mapper.AutoMapper.Extensions;
 using Tenon.Serialization.Json;
 using Tenon.Serialization.Json.Extensions;
@@ -27,6 +28,7 @@ public static class ServiceCollectionExtension
         services.AddAutoMapperSetup(typeof(AutoMapperProfile).Assembly);
         var jsonSerializerOptions = SystemTextJsonSerializer.DefaultOptions;
         jsonSerializerOptions.WriteIndented = true;
+        jsonSerializerOptions.Converters.Add(new UiaAccessibleComponentConverter());
         services.AddSystemTextJsonSerializer(jsonSerializerOptions);
         return services;
     }
