@@ -32,4 +32,25 @@ public class UiaAccessibleTests
             Assert.IsNotNull(nativeIdentity.Applications);
         }
     }
+
+    [TestMethod]
+    public void RecordTest()
+    {
+        using (var scope = _serviceProvider.CreateScope())
+        {
+            var accessible = scope.ServiceProvider.GetService<Accessible>();
+            if (accessible.Identity is not UiaAccessibleIdentity uiaAccessibleIdentity)
+            {
+                Assert.Fail("uiaAccessibleIdentity is null");
+                return;
+            }
+
+            var buttonTest = uiaAccessibleIdentity.DesktopElement.FindFirstDescendant(cf => cf.ByName("一"));
+            Assert.IsNotNull(buttonTest);
+            accessible.Record(buttonTest);
+            var actual = accessible.UniqueId;
+            Assert.IsNotNull(actual);
+            Assert.AreEqual("CalculatorApp|num1Button", actual);
+        }
+    }
 }

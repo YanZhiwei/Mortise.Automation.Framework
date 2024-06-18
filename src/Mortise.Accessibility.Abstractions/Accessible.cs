@@ -4,6 +4,7 @@ namespace Mortise.Accessibility.Abstractions;
 
 public abstract class Accessible
 {
+    [JsonIgnore] public string UniqueId { get; protected set; }
     [JsonInclude] public string FileName { get; protected set; }
 
     [JsonInclude] public AccessibilityProvider Provider { get; protected set; }
@@ -18,11 +19,13 @@ public abstract class Accessible
 
     public abstract void Record(object component);
 
-    public abstract AccessibleComponent? FindComponent(string locatorPath);
+    public abstract AccessibleComponent? FindComponent(string locatorString);
 
     public abstract void Launch();
 
     public abstract void Attach();
 
     public abstract void Close();
+
+    protected abstract string GenerateUniqueId();
 }
