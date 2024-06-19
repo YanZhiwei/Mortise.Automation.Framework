@@ -1,14 +1,12 @@
 ﻿using Mortise.Accessibility.Abstractions;
 
-namespace Mortise.Accessibility.LocatorStorage.Abstractions;
+namespace Mortise.Accessibility.Locator.Abstractions;
 
-public interface IAccessibleLocators
+public interface IAccessibleLocatorStorage
 {
-    IEnumerable<Accessible> Accessibles { get; }
-
     bool Add(Accessible accessible);
 
-    Accessible Remove(string uniqueId, string? fileName = null);
+    Accessible? Remove(string uniqueId, string? fileName = null);
 
     void Save();
 
