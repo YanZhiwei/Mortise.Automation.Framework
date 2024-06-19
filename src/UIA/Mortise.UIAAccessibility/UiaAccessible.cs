@@ -116,14 +116,18 @@ public class UiaAccessible : Accessible
             throw new InvalidOperationException(nameof(Components));
         if (Components.Last() is not UiaAccessibleComponent lastComponent)
             throw new NotSupportedException(nameof(Components));
-        if (!string.IsNullOrWhiteSpace(lastComponent.Id))
-            return $"{FileName}|{lastComponent.Id}";
-        if (!string.IsNullOrWhiteSpace(lastComponent.Name))
-            return $"{FileName}|{lastComponent.Name}";
-        if (!string.IsNullOrWhiteSpace(lastComponent.ClassName))
-            return $"{FileName}|{lastComponent.ClassName}";
-        return $"{FileName}|{lastComponent.ControlType}|{lastComponent.GetHashCode()}";
 
+        var componentKey = string.Empty;
+        if (!string.IsNullOrWhiteSpace(lastComponent.Id))
+            componentKey = lastComponent.Id;
+        else if (string.IsNullOrWhiteSpace(componentKey) && !string.IsNullOrWhiteSpace(lastComponent.Name))
+            componentKey = lastComponent.Name;
+        else if (lastComponent.ControlType == AccessibleControlType.Unknown &&
+                 !string.IsNullOrWhiteSpace(lastComponent.ClassName))
+            componentKey = lastComponent.ClassName;
+        else
+            componentKey = lastComponent.ControlType.ToString();
+        return $"{componentKey}";
     }
 
     protected virtual ConditionBase CreateCondition(AccessibleComponent component)
