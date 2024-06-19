@@ -16,8 +16,9 @@
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
+		<PackageReference Include="Tenon.Serialization.Json" Version="0.0.1-alpha-202406141611" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\Mortise.Accessibility.LocatorStorage.Abstractions\Mortise.Accessibility.LocatorStorage.Abstractions.csproj" />
+	  <ProjectReference Include="..\Mortise.Accessibility.Locator.Abstractions\Mortise.Accessibility.Locator.Abstractions.csproj" />
 	</ItemGroup>
 </Project>
