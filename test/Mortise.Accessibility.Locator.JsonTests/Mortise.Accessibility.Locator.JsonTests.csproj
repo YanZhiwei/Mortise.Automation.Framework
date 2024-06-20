@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+	  <TargetFramework>net8.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
@@ -32,6 +32,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Mortise.Accessibility.Locator.Abstractions\Mortise.Accessibility.Locator.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\Mortise.Accessibility.Locator.Json\Mortise.Accessibility.Locator.Json.csproj" />
+    <ProjectReference Include="..\..\src\UIA\Mortise.UIAAccessibility\Mortise.UiaAccessibility.csproj" />
   </ItemGroup>
 
   <ItemGroup>

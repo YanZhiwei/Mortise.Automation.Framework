@@ -6,7 +6,6 @@ using FlaUI.UIA3.Identifiers;
 using Mortise.Accessibility.Abstractions;
 using Mortise.UIAAccessibility;
 using Tenon.Mapper.Abstractions;
-using Tenon.Serialization.Abstractions;
 using Tenon.Windows.Extensions;
 
 namespace Mortise.UiaAccessibility;
@@ -16,15 +15,12 @@ public class UiaAccessible : Accessible
 {
     protected readonly IObjectMapper Mapper;
     public readonly UiaAccessibleIdentity NativeIdentity;
-    protected readonly ISerializer Serializer;
 
-    public UiaAccessible(IObjectMapper mapper,
-        ISerializer serializer, IEnumerable<IUiaAccessibleIdentity> uiaAccessibleIdentities)
+    public UiaAccessible(IObjectMapper mapper, IEnumerable<IUiaAccessibleIdentity> uiaAccessibleIdentities)
     {
         Identity = new UiaAccessibleIdentity(mapper, uiaAccessibleIdentities);
         NativeIdentity = (UiaAccessibleIdentity)Identity;
         Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-        Serializer = serializer;
         Provider = AccessibilityProvider.Uia;
         Platform = PlatformID.Win32NT;
         Version = new Version(3, 0, 0);
@@ -67,12 +63,11 @@ public class UiaAccessible : Accessible
         UniqueId = GenerateUniqueId();
     }
 
-    public override AccessibleComponent? FindComponent(string locatorString)
+    public override AccessibleComponent? FindComponent(Accessible accessible)
     {
-        if (string.IsNullOrWhiteSpace(locatorString))
-            throw new ArgumentNullException(nameof(locatorString));
+        if (accessible is not UiaAccessible uiaAccessible)
+            throw new NotSupportedException(nameof(accessible));
 
-        var uiaAccessible = Serializer.DeserializeObject<UiaAccessible>(locatorString);
         AutomationElement? foundElement = null;
         var parentElement = GetWindowElement(uiaAccessible.FileName);
         var recordElements = new Stack<AccessibleComponent>(uiaAccessible.Components);

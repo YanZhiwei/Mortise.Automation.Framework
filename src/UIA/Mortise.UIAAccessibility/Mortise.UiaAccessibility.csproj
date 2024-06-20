@@ -13,7 +13,6 @@
     <PackageReference Include="System.Drawing.Common" Version="8.0.6" />
     <PackageReference Include="Tenon.Mapper.AutoMapper" Version="0.0.1-alpha-202406141611" />
     <PackageReference Include="Tenon.Helper" Version="0.0.1-alpha-202406141611" />
-    <PackageReference Include="Tenon.Serialization.Json" Version="0.0.1-alpha-202406141611" />
     <PackageReference Include="Tenon.Windows.Extensions" Version="0.0.1-alpha-202406141612" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
