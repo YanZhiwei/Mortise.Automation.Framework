@@ -1,14 +1,16 @@
 ﻿using System.Collections.Concurrent;
-using System.Text;
 using Mortise.Accessibility.Abstractions;
 using Mortise.Accessibility.Locator.Abstractions;
+using Mortise.Accessibility.Locator.Json.Configurations;
 using Tenon.Serialization.Abstractions;
 
 namespace Mortise.Accessibility.Locator.Json;
 
-public sealed class JsonAccessibleLocatorStorage(ISerializer serializer) : IAccessibleLocatorStorage
+public sealed class JsonAccessibleLocatorStorage(JsonLocatorStorageOptions options, ISerializer serializer)
+    : IAccessibleLocatorStorage
 {
     private readonly ConcurrentDictionary<string, HashSet<Accessible>> _accessibleDict = new();
+    private readonly JsonLocatorStorageOptions _options = options ?? throw new ArgumentNullException(nameof(options));
     private readonly ISerializer _serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
 
     public bool Add(Accessible accessible)
@@ -19,16 +21,10 @@ public sealed class JsonAccessibleLocatorStorage(ISerializer serializer) : IAcce
         if (_accessibleDict.TryGetValue(key, out var accessibles))
         {
             accessibles ??= [];
-            if (accessibles.Any(c => c.UniqueId.Equals(accessible.UniqueId, StringComparison.OrdinalIgnoreCase)))
-                return false;
-            accessibles.Add(accessible);
-        }
-        else
-        {
-            return _accessibleDict.TryAdd(key, [accessible]);
+            return accessibles.Add(accessible);
         }
 
-        return true;
+        return _accessibleDict.TryAdd(key, [accessible]);
     }
 
     public Accessible? Remove(string uniqueId, string? fileName = null)
@@ -59,10 +55,16 @@ public sealed class JsonAccessibleLocatorStorage(ISerializer serializer) : IAcce
 
     public void Save()
     {
-        var accessibleLocatorJsonString = _serializer.SerializeObject(_accessibleDict);
-        if (string.IsNullOrWhiteSpace(accessibleLocatorJsonString))
-            throw new InvalidDataException(nameof(accessibleLocatorJsonString));
-        File.WriteAllText("test.json", accessibleLocatorJsonString, Encoding.UTF8);
+        var appData = _options.AppData;
+        if (string.IsNullOrWhiteSpace(appData))
+            throw new ArgumentNullException(nameof(appData));
+        if (!Directory.Exists(appData))
+            Directory.CreateDirectory(appData);
+        foreach (var accessible in _accessibleDict)
+        {
+            var accessibleFile = Path.Combine(appData, $"{accessible.Key}.locator");
+            File.WriteAllText(accessibleFile, _serializer.SerializeObject(accessible.Value), _options.Encoding);
+        }
     }
 
     public long GetCount(string? fileName = null)
