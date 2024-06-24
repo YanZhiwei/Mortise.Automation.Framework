@@ -400,7 +400,73 @@ public class JsonAccessibleLocatorStorageTests
             Assert.IsTrue(locatorStorage.Add(accessible3));
             Assert.IsTrue(locatorStorage.Add(accessible4));
             locatorStorage.Save();
+            var actual = locatorStorage.Load();
+            Assert.IsTrue(actual);
+            var locatorJsonString5 = @"{
+  ""uniqueId"": ""num3Button"",
+  ""fileName"": ""Calculator"",
+  ""provider"": ""Uia"",
+  ""platform"": ""Win32NT"",
+  ""version"": ""3.0.0"",
+  ""components"": [
+    {
+      ""className"": ""ApplicationFrameWindow"",
+      ""name"": ""\u8BA1\u7B97\u5668"",
+      ""controlType"": ""Window"",
+      ""isDialog"": false,
+      ""id"": null,
+      ""isPassword"": false
+    },
+    {
+      ""className"": ""Windows.UI.Core.CoreWindow"",
+      ""name"": ""\u8BA1\u7B97\u5668"",
+      ""controlType"": ""Window"",
+      ""isDialog"": false,
+      ""id"": null,
+      ""isPassword"": false
+    },
+    {
+      ""className"": null,
+      ""name"": null,
+      ""controlType"": ""Custom"",
+      ""isDialog"": false,
+      ""id"": ""NavView"",
+      ""isPassword"": false
+    },
+    {
+      ""className"": ""LandmarkTarget"",
+      ""name"": null,
+      ""controlType"": ""Group"",
+      ""isDialog"": false,
+      ""id"": null,
+      ""isPassword"": false
+    },
+    {
+      ""className"": ""NamedContainerAutomationPeer"",
+      ""name"": ""\u6570\u5B57\u952E\u76D8"",
+      ""controlType"": ""Group"",
+      ""isDialog"": false,
+      ""id"": ""NumberPad"",
+      ""isPassword"": false
+    },
+    {
+      ""className"": ""Button"",
+      ""name"": ""\u4E00"",
+      ""controlType"": ""Button"",
+      ""isDialog"": false,
+      ""id"": ""num3Button"",
+      ""isPassword"": false
+    }
+  ]
+}";
+            var accessible5 = serializer.DeserializeObject<UiaAccessible>(locatorJsonString5);
+            Assert.IsTrue(locatorStorage.Add(accessible5));
+            locatorStorage.Save();
+            actual = locatorStorage.Load();
+            Assert.IsTrue(actual);
+            Assert.AreEqual(5, locatorStorage.AccessibleDict.Values.SelectMany(c=>c).ToArray().Length);
         }
+
     }
 
 
@@ -411,7 +477,7 @@ public class JsonAccessibleLocatorStorageTests
         {
             var locatorStorage = scope.ServiceProvider.GetRequiredService<IAccessibleLocatorStorage>();
             var actual = locatorStorage.Load();
-            Assert.IsNotNull(actual);
+            Assert.IsTrue(actual);
         }
     }
 }

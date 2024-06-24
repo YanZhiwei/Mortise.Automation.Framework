@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Collections.ObjectModel;
 using Mortise.Accessibility.Abstractions;
 using Mortise.Accessibility.Locator.Abstractions;
 using Mortise.Accessibility.Locator.Json.Configurations;
@@ -9,7 +10,9 @@ namespace Mortise.Accessibility.Locator.Json;
 public sealed class JsonAccessibleLocatorStorage(JsonLocatorStorageOptions options, ISerializer serializer)
     : IAccessibleLocatorStorage
 {
-    private readonly ConcurrentDictionary<string, HashSet<Accessible>> _accessibleDict = new();
+    private readonly ConcurrentDictionary<string, List<Accessible>> _accessibleDict =
+        new(StringComparer.OrdinalIgnoreCase);
+
     private readonly JsonLocatorStorageOptions _options = options ?? throw new ArgumentNullException(nameof(options));
     private readonly ISerializer _serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
 
@@ -21,7 +24,11 @@ public sealed class JsonAccessibleLocatorStorage(JsonLocatorStorageOptions optio
         if (_accessibleDict.TryGetValue(key, out var accessibles))
         {
             accessibles ??= [];
-            return accessibles.Add(accessible);
+            if (!accessibles.Any(c => c.UniqueId.Equals(accessible.UniqueId, StringComparison.OrdinalIgnoreCase)))
+            {
+                accessibles.Add(accessible);
+                return true;
+            }
         }
 
         return _accessibleDict.TryAdd(key, [accessible]);
@@ -113,12 +120,14 @@ public sealed class JsonAccessibleLocatorStorage(JsonLocatorStorageOptions optio
         return true;
     }
 
-    public Accessible[]? Load()
+    public bool Load()
     {
+        var result = true;
         var appData = _options.AppData;
-        if (!Directory.Exists(appData)) return null;
+        if (!Directory.Exists(appData)) return result;
         var locatorFiles = Directory.EnumerateFiles(appData, "*.locator").ToArray();
         List<Accessible> accessibles = [];
+
         foreach (var locatorFile in locatorFiles)
         {
             var locatorJsonString = File.ReadAllText(locatorFile, _options.Encoding);
@@ -127,6 +136,22 @@ public sealed class JsonAccessibleLocatorStorage(JsonLocatorStorageOptions optio
                 accessibles.AddRange(fileAccessibles);
         }
 
-        return accessibles.ToArray();
+
+        var accessiblesDict =
+            accessibles.Where(c => !string.IsNullOrWhiteSpace(c.FileName) && !string.IsNullOrWhiteSpace(c.UniqueId))
+                .GroupBy(s => s.FileName)
+                .ToDictionary(k => k.Key, v => v?.ToArray() ?? []);
+        _accessibleDict.Clear();
+        foreach (var accessibleItem in accessiblesDict)
+        {
+            var key = accessibleItem.Key;
+            if (!_accessibleDict.TryAdd(key, accessibleItem.Value.ToList())) result = false;
+            if (!result) break;
+        }
+
+        return result;
     }
+
+    public IReadOnlyDictionary<string, List<Accessible>> AccessibleDict =>
+        new ReadOnlyDictionary<string, List<Accessible>>(_accessibleDict);
 }

@@ -4,6 +4,7 @@ namespace Mortise.Accessibility.Locator.Abstractions;
 
 public interface IAccessibleLocatorStorage
 {
+    IReadOnlyDictionary<string, List<Accessible>> AccessibleDict { get; }
     bool Add(Accessible accessible);
 
     Accessible? Remove(string uniqueId, string? fileName = null);
@@ -16,5 +17,5 @@ public interface IAccessibleLocatorStorage
 
     bool Set(Accessible accessible);
 
-    Accessible[]? Load();
+    bool Load();
 }
