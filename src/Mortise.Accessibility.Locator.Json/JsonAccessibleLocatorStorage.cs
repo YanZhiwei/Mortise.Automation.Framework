@@ -112,4 +112,21 @@ public sealed class JsonAccessibleLocatorStorage(JsonLocatorStorageOptions optio
 
         return true;
     }
+
+    public Accessible[]? Load()
+    {
+        var appData = _options.AppData;
+        if (!Directory.Exists(appData)) return null;
+        var locatorFiles = Directory.EnumerateFiles(appData, "*.locator").ToArray();
+        List<Accessible> accessibles = [];
+        foreach (var locatorFile in locatorFiles)
+        {
+            var locatorJsonString = File.ReadAllText(locatorFile, _options.Encoding);
+            var fileAccessibles = _serializer.DeserializeObject<Accessible[]>(locatorJsonString);
+            if (fileAccessibles?.Any() ?? false)
+                accessibles.AddRange(fileAccessibles);
+        }
+
+        return accessibles.ToArray();
+    }
 }
