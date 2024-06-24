@@ -15,4 +15,6 @@ public interface IAccessibleLocatorStorage
     bool Contains(string uniqueId, string? fileName = null);
 
     bool Set(Accessible accessible);
+
+    Accessible[]? Load();
 }

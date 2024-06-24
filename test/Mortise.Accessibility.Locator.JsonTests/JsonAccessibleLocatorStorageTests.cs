@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Mortise.Accessibility.Abstractions;
 using Mortise.Accessibility.Locator.Abstractions;
 using Mortise.Accessibility.Locator.Json.Extensions;
 using Mortise.UiaAccessibility;
@@ -17,7 +18,8 @@ public class JsonAccessibleLocatorStorageTests
     {
         _serviceProvider = new ServiceCollection()
             .AddLogging(loggingBuilder => loggingBuilder.SetMinimumLevel(LogLevel.Debug))
-            .AddJsonLocator(option => { option.UseLocalStorage(); }, [new UiaAccessibleComponentConverter()])
+            .AddJsonLocator(option => { option.UseLocalStorage(); },
+                [new UiaAccessibleConverter(), new UiaAccessibleComponentConverter()])
             .BuildServiceProvider();
     }
 
@@ -143,18 +145,12 @@ public class JsonAccessibleLocatorStorageTests
 }";
             var locatorStorage = scope.ServiceProvider.GetRequiredService<IAccessibleLocatorStorage>();
             var serializer = scope.ServiceProvider.GetRequiredService<ISerializer>();
-            var accessible1 = serializer.DeserializeObject<UiaAccessible>(locatorJsonString1);
-            var accessible2 = serializer.DeserializeObject<UiaAccessible>(locatorJsonString2);
+            var accessible1 = serializer.DeserializeObject<Accessible>(locatorJsonString1);
+            var accessible2 = serializer.DeserializeObject<Accessible>(locatorJsonString2);
             Assert.IsTrue(locatorStorage.Add(accessible1));
             Assert.IsTrue(locatorStorage.Add(accessible2));
             Assert.IsFalse(locatorStorage.Add(accessible2));
         }
-    }
-
-    [TestMethod]
-    public void RemoveTest()
-    {
-        Assert.Fail();
     }
 
     [TestMethod]
@@ -407,21 +403,15 @@ public class JsonAccessibleLocatorStorageTests
         }
     }
 
-    [TestMethod]
-    public void GetCountTest()
-    {
-        Assert.Fail();
-    }
 
     [TestMethod]
-    public void ContainsTest()
+    public void LoadTest()
     {
-        Assert.Fail();
-    }
-
-    [TestMethod]
-    public void SetTest()
-    {
-        Assert.Fail();
+        using (var scope = _serviceProvider.CreateScope())
+        {
+            var locatorStorage = scope.ServiceProvider.GetRequiredService<IAccessibleLocatorStorage>();
+            var actual = locatorStorage.Load();
+            Assert.IsNotNull(actual);
+        }
     }
 }
