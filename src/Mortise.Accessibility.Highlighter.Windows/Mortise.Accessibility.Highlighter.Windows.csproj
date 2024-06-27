@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\..\nuget.props"></Import>
+	<Import Project="..\..\common.props"></Import>
+	<Import Project="..\..\version.props"></Import>
+  <PropertyGroup>
+	  <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  <EnableWindowsTargeting>true</EnableWindowsTargeting>
+	  <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Tenon.Infra.Windows.Form" Version="0.0.1-alpha-202406251508" />
+    <PackageReference Include="Tenon.Infra.Windows.Win32" Version="0.0.1-alpha-202406251508" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mortise.Accessibility.Highlighter.Abstractions\Mortise.Accessibility.Highlighter.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

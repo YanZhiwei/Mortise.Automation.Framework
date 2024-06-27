@@ -20,12 +20,24 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mortise.Accessibility.Locat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mortise.Accessibility.Locator.JsonTests", "test\Mortise.Accessibility.Locator.JsonTests\Mortise.Accessibility.Locator.JsonTests.csproj", "{0267B422-302F-4138-A5D2-7C5547766953}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mortise.Accessibility.Highlighter.Abstractions", "src\Mortise.Accessibility.Highlighter.Abstractions\Mortise.Accessibility.Highlighter.Abstractions.csproj", "{13379BE6-2EB7-4661-A2B9-D0681AAF3667}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mortise.Accessibility.Highlighter.Windows", "src\Mortise.Accessibility.Highlighter.Windows\Mortise.Accessibility.Highlighter.Windows.csproj", "{0499EB8D-DC8B-47EB-8447-A52579DC4EF3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0499EB8D-DC8B-47EB-8447-A52579DC4EF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0499EB8D-DC8B-47EB-8447-A52579DC4EF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0499EB8D-DC8B-47EB-8447-A52579DC4EF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0499EB8D-DC8B-47EB-8447-A52579DC4EF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13379BE6-2EB7-4661-A2B9-D0681AAF3667}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13379BE6-2EB7-4661-A2B9-D0681AAF3667}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13379BE6-2EB7-4661-A2B9-D0681AAF3667}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13379BE6-2EB7-4661-A2B9-D0681AAF3667}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BF544747-9B9F-4C0D-AB67-7367E5199825}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BF544747-9B9F-4C0D-AB67-7367E5199825}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF544747-9B9F-4C0D-AB67-7367E5199825}.Release|Any CPU.ActiveCfg = Release|Any CPU
