@@ -88,17 +88,17 @@ public class UiaAccessible : Accessible
         return foundElement != null ? Identity.DtoAccessibleComponent(foundElement, this) : null;
     }
 
-    public override void Launch()
+    public override Task<Process> LaunchAsync<T>(T options)
     {
         throw new NotImplementedException();
     }
 
-    public override void Attach()
+    public override Task<Process> AttachAsync<T>(T options)
     {
         throw new NotImplementedException();
     }
 
-    public override void Close()
+    public override Task<bool> CloseAsync()
     {
         throw new NotImplementedException();
     }
