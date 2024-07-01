@@ -15,13 +15,13 @@ public abstract class Accessible
     [JsonIgnore] public AccessibleIdentity Identity { get; protected set; }
     public abstract void Record(object component);
     public abstract AccessibleComponent? FindComponent(Accessible accessible);
-    public abstract Task<Process> LaunchAsync<T>(T options) where T : LaunchOptions;
-    public abstract Task<Process> AttachAsync<T>(T options) where T : AttachOptions;
-    public abstract Task<bool> CloseAsync();
+    public abstract Task<Process?> LaunchAsync(LaunchOptions options, int timeoutSeconds = 30);
+    public abstract Task<Process?> AttachAsync(AttachOptions options, int timeoutSeconds = 30);
+    public abstract Task<bool> CloseAsync(CloseOptions options, int timeoutSeconds = 30);
 
     protected virtual string GenerateUniqueId()
     {
-        AccessibleComponent lastComponent = Components.Last();
+        var lastComponent = Components.Last();
         if (string.IsNullOrEmpty(lastComponent.Name))
             return lastComponent.Name;
         if (string.IsNullOrEmpty(lastComponent.Id))
