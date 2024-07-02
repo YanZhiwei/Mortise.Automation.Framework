@@ -4,7 +4,6 @@ using FlaUI.Core.Conditions;
 using FlaUI.Core.Definitions;
 using FlaUI.UIA3.Identifiers;
 using Mortise.Accessibility.Abstractions;
-using Mortise.Accessibility.Abstractions.Options;
 using Mortise.UIAAccessibility;
 using Tenon.Mapper.Abstractions;
 using Tenon.Windows.Extensions;
@@ -87,21 +86,6 @@ public class UiaAccessible : Accessible
         }
 
         return foundElement != null ? Identity.DtoAccessibleComponent(foundElement, this) : null;
-    }
-
-    public override Task<Process?> LaunchAsync(LaunchOptions options, int timeoutSeconds = 30)
-    {
-        throw new NotImplementedException();
-    }
-
-    public override Task<Process?> AttachAsync(AttachOptions options, int timeoutSeconds = 30)
-    {
-        throw new NotImplementedException();
-    }
-
-    public override Task<bool> CloseAsync(CloseOptions options, int timeoutSeconds = 30)
-    {
-        throw new NotImplementedException();
     }
 
     protected override string GenerateUniqueId()

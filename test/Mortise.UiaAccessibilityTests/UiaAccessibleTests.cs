@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using Mortise.Accessibility.Abstractions;
 using Mortise.UiaAccessibility;
 using Mortise.UiaAccessibility.Extensions;
-using Mortise.UiaAccessibility.Options;
 using Mortise.UiaAccessibility.WeChat.Configurations;
 
 namespace Mortise.UiaAccessibilityTests;
@@ -55,14 +54,14 @@ public class UiaAccessibleTests
         }
     }
 
-    [TestMethod]
-    public async Task LaunchAsyncTest()
-    {
-        using (var scope = _serviceProvider.CreateScope())
-        {
-            var uiaAccessible = scope.ServiceProvider.GetService<Accessible>();
-            Assert.IsNotNull(uiaAccessible);
-            await uiaAccessible.LaunchAsync(new UiaLaunchOptions());
-        }
-    }
+    //[TestMethod]
+    //public async Task LaunchAsyncTest()
+    //{
+    //    using (var scope = _serviceProvider.CreateScope())
+    //    {
+    //        var uiaAccessible = scope.ServiceProvider.GetService<Accessible>();
+    //        Assert.IsNotNull(uiaAccessible);
+    //        await uiaAccessible.LaunchAsync(new UiaLaunchOptions());
+    //    }
+    //}
 }

@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.Text.Json.Serialization;
-using Mortise.Accessibility.Abstractions.Options;
+﻿using System.Text.Json.Serialization;
 
 namespace Mortise.Accessibility.Abstractions;
 
@@ -15,9 +13,6 @@ public abstract class Accessible
     [JsonIgnore] public AccessibleIdentity Identity { get; protected set; }
     public abstract void Record(object component);
     public abstract AccessibleComponent? FindComponent(Accessible accessible);
-    public abstract Task<Process?> LaunchAsync(LaunchOptions options, int timeoutSeconds = 30);
-    public abstract Task<Process?> AttachAsync(AttachOptions options, int timeoutSeconds = 30);
-    public abstract Task<bool> CloseAsync(CloseOptions options, int timeoutSeconds = 30);
 
     protected virtual string GenerateUniqueId()
     {
