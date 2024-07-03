@@ -18,7 +18,7 @@ public static class ServiceCollectionExtension
         foreach (var serviceExtension in options.AccessibleOptions)
             serviceExtension.AddAccessible(services);
         services.AddSingleton<Accessible, UiaAccessible>();
-        services.AddSingleton<AccessibleIdentity, UiaAccessibleIdentity>();
+        services.AddSingleton<AccessibleDetector, UiaAccessibleDetector>();
         services.AddAutoMapperSetup(typeof(AutoMapperProfile).Assembly);
         return services;
     }

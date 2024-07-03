@@ -5,9 +5,9 @@ using Mortise.Accessibility.Abstractions;
 
 namespace Mortise.UIAAccessibility;
 
-public interface IUiaAccessibleIdentity
+public interface IUiaAccessibleDetector
 {
-    public IAccessibleMetadata Metadata { get; }
+    public IAccessibleDescriptor Descriptor { get; }
 
     public AutomationElement? FromHoveredElement(Point location, AutomationElement hoveredElement,
         ITreeWalker treeWalker);

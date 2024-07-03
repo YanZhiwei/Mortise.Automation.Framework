@@ -3,7 +3,7 @@ using Mortise.Accessibility.Abstractions;
 
 namespace Mortise.UiaAccessibility;
 
-public class UiaAccessibleComponent : AccessibleComponent, IAccessibleAction
+public class UiaAccessibleComponent : AccessibleComponent, IAccessibleComponentAction
 {
     public string ClassName { get; set; }
 

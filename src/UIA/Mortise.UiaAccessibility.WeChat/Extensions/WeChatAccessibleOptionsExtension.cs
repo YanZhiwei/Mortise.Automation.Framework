@@ -15,6 +15,6 @@ internal sealed class WeChatAccessibleOptionsExtension : IUiaAccessibleOptionsEx
 
     public void AddAccessible(IServiceCollection services)
     {
-        services.AddSingleton<IUiaAccessibleIdentity, WeChatAccessibleIdentity>();
+        services.AddSingleton<IUiaAccessibleDetector, WeChatAccessibleDetector>();
     }
 }

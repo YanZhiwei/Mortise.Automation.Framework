@@ -14,12 +14,12 @@ namespace Mortise.UiaAccessibility;
 public class UiaAccessible : Accessible
 {
     protected readonly IObjectMapper Mapper;
-    public readonly UiaAccessibleIdentity NativeIdentity;
+    public readonly UiaAccessibleDetector NativeIdentity;
 
-    public UiaAccessible(IObjectMapper mapper, IEnumerable<IUiaAccessibleIdentity> uiaAccessibleIdentities)
+    public UiaAccessible(IObjectMapper mapper, IEnumerable<IUiaAccessibleDetector> uiaAccessibleIdentities)
     {
-        Identity = new UiaAccessibleIdentity(mapper, uiaAccessibleIdentities);
-        NativeIdentity = (UiaAccessibleIdentity)Identity;
+        Detector = new UiaAccessibleDetector(mapper, uiaAccessibleIdentities);
+        NativeIdentity = (UiaAccessibleDetector)Detector;
         Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         Provider = AccessibilityProvider.Uia;
         Platform = PlatformID.Win32NT;
@@ -50,7 +50,7 @@ public class UiaAccessible : Accessible
         var uiaComponents = new AccessibleComponentStack<AccessibleComponent>();
         var currentComponent = automationElement;
         FileName = Process.GetProcessById(currentComponent.Properties.ProcessId).ProcessName;
-        uiaComponents.Push(Identity.DtoAccessibleComponent(currentComponent, this)!);
+        uiaComponents.Push(Detector.DtoAccessibleComponent(currentComponent, this)!);
         while (currentComponent.Parent != null)
         {
             if (currentComponent.Parent.Equals(NativeIdentity.DesktopElement))
@@ -85,7 +85,7 @@ public class UiaAccessible : Accessible
             parentElement = foundElement;
         }
 
-        return foundElement != null ? Identity.DtoAccessibleComponent(foundElement, this) : null;
+        return foundElement != null ? Detector.DtoAccessibleComponent(foundElement, this) : null;
     }
 
     protected override string GenerateUniqueId()

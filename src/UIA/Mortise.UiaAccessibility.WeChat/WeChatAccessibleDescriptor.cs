@@ -2,9 +2,9 @@
 
 namespace Mortise.UiaAccessibility.WeChat;
 
-public class WeChatAccessibleMetadata : IAccessibleMetadata
+public class WeChatAccessibleDescriptor : IAccessibleDescriptor
 {
-    public WeChatAccessibleMetadata()
+    public WeChatAccessibleDescriptor()
     {
         SupportedProcessNames = ["WeChat", "WeChatApp"];
         IdentityString = string.Join(",", SupportedProcessNames);
