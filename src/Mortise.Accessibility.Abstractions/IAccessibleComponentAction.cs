@@ -1,6 +1,6 @@
 ﻿namespace Mortise.Accessibility.Abstractions;
 
-public interface IAccessibleAction
+public interface IAccessibleComponentAction
 {
     public void Click();
 }

@@ -10,7 +10,7 @@ public abstract class Accessible
     [JsonInclude] public PlatformID Platform { get; protected set; }
     [JsonInclude] public Version Version { get; protected set; }
     [JsonInclude] public AccessibleComponentStack<AccessibleComponent> Components { get; protected set; }
-    [JsonIgnore] public AccessibleIdentity Identity { get; protected set; }
+    [JsonIgnore] public AccessibleDetector Detector { get; protected set; }
     public abstract void Record(object component);
     public abstract AccessibleComponent? FindComponent(Accessible accessible);
 

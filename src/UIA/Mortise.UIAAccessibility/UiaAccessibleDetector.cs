@@ -9,23 +9,23 @@ using Tenon.Mapper.Abstractions;
 
 namespace Mortise.UiaAccessibility;
 
-public class UiaAccessibleIdentity : AccessibleIdentity
+public class UiaAccessibleDetector : AccessibleDetector
 {
-    public readonly Dictionary<string, IUiaAccessibleIdentity> Applications;
+    public readonly Dictionary<string, IUiaAccessibleDetector> Applications;
     public readonly UIA3Automation Automation = new();
     public readonly AutomationElement DesktopElement;
     protected readonly IObjectMapper Mapper;
     public readonly ITreeWalker TreeWalker;
 
-    public UiaAccessibleIdentity(IObjectMapper mapper, IEnumerable<IUiaAccessibleIdentity> appAccessible)
+    public UiaAccessibleDetector(IObjectMapper mapper, IEnumerable<IUiaAccessibleDetector> appAccessibleDetectors)
     {
         Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         TreeWalker = Automation.TreeWalkerFactory.GetControlViewWalker();
         DesktopElement = Automation.GetDesktop();
         Priority = AccessiblePriority.Highest;
-        if (appAccessible?.Any() ?? false)
+        if (appAccessibleDetectors?.Any() ?? false)
             Applications =
-                appAccessible.ToDictionary(key => key.Metadata.IdentityString, value => value);
+                appAccessibleDetectors.ToDictionary(key => key.Descriptor.IdentityString, value => value);
     }
 
     public override AccessibleComponent? FromPoint(Point location)

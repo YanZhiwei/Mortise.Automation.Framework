@@ -26,8 +26,8 @@ public class UiaAccessibleTests
         {
             var uiaAccessible = scope.ServiceProvider.GetService<Accessible>();
             Assert.IsNotNull(uiaAccessible);
-            Assert.IsNotNull(uiaAccessible.Identity);
-            var nativeIdentity = uiaAccessible.Identity as UiaAccessibleIdentity;
+            Assert.IsNotNull(uiaAccessible.Detector);
+            var nativeIdentity = uiaAccessible.Detector as UiaAccessibleDetector;
             Assert.IsNotNull(nativeIdentity);
             Assert.IsNotNull(nativeIdentity.Applications);
         }
@@ -39,7 +39,7 @@ public class UiaAccessibleTests
         using (var scope = _serviceProvider.CreateScope())
         {
             var accessible = scope.ServiceProvider.GetService<Accessible>();
-            if (accessible.Identity is not UiaAccessibleIdentity uiaAccessibleIdentity)
+            if (accessible.Detector is not UiaAccessibleDetector uiaAccessibleIdentity)
             {
                 Assert.Fail("uiaAccessibleIdentity is null");
                 return;

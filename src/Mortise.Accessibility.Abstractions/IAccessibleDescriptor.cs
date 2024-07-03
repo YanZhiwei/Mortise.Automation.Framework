@@ -1,6 +1,6 @@
 ﻿namespace Mortise.Accessibility.Abstractions;
 
-public interface IAccessibleMetadata
+public interface IAccessibleDescriptor
 {
     public string[] SupportedProcessNames { get; }
 

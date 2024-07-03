@@ -7,14 +7,14 @@ using Mortise.UIAAccessibility;
 
 namespace Mortise.UiaAccessibility.WeChat;
 
-public sealed class WeChatAccessibleIdentity : IUiaAccessibleIdentity
+public sealed class WeChatAccessibleDetector : IUiaAccessibleDetector
 {
-    public WeChatAccessibleIdentity()
+    public WeChatAccessibleDetector()
     {
-        Metadata = new WeChatAccessibleMetadata();
+        Descriptor = new WeChatAccessibleDescriptor();
     }
 
-    public IAccessibleMetadata Metadata { get; }
+    public IAccessibleDescriptor Descriptor { get; }
 
     public AutomationElement? FromHoveredElement(Point location, AutomationElement hoveredElement,
         ITreeWalker treeWalker)
