@@ -17,15 +17,15 @@ public class UiaAccessibleDetector : AccessibleDetector
     protected readonly IObjectMapper Mapper;
     public readonly ITreeWalker TreeWalker;
 
-    public UiaAccessibleDetector(IObjectMapper mapper, IEnumerable<IUiaAccessibleDetector> appAccessible)
+    public UiaAccessibleDetector(IObjectMapper mapper, IEnumerable<IUiaAccessibleDetector> appAccessibleDetectors)
     {
         Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         TreeWalker = Automation.TreeWalkerFactory.GetControlViewWalker();
         DesktopElement = Automation.GetDesktop();
         Priority = AccessiblePriority.Highest;
-        if (appAccessible?.Any() ?? false)
+        if (appAccessibleDetectors?.Any() ?? false)
             Applications =
-                appAccessible.ToDictionary(key => key.Descriptor.IdentityString, value => value);
+                appAccessibleDetectors.ToDictionary(key => key.Descriptor.IdentityString, value => value);
     }
 
     public override AccessibleComponent? FromPoint(Point location)

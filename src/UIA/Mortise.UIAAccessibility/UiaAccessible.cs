@@ -14,12 +14,12 @@ namespace Mortise.UiaAccessibility;
 public class UiaAccessible : Accessible
 {
     protected readonly IObjectMapper Mapper;
-    public readonly UiaAccessibleDetector NativeIdentity;
+    public readonly UiaAccessibleDetector NativeDetector;
 
-    public UiaAccessible(IObjectMapper mapper, IEnumerable<IUiaAccessibleDetector> uiaAccessibleIdentities)
+    public UiaAccessible(IObjectMapper mapper, IEnumerable<IUiaAccessibleDetector> uiaAccessibleDetectors)
     {
-        Detector = new UiaAccessibleDetector(mapper, uiaAccessibleIdentities);
-        NativeIdentity = (UiaAccessibleDetector)Detector;
+        Detector = new UiaAccessibleDetector(mapper, uiaAccessibleDetectors);
+        NativeDetector = (UiaAccessibleDetector)Detector;
         Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         Provider = AccessibilityProvider.Uia;
         Platform = PlatformID.Win32NT;
@@ -40,8 +40,8 @@ public class UiaAccessible : Accessible
             mainWindowHandle = process.FindFirstCoreWindows();
 
         return mainWindowHandle == IntPtr.Zero
-            ? NativeIdentity.DesktopElement
-            : NativeIdentity.Automation.FromHandle(mainWindowHandle);
+            ? NativeDetector.DesktopElement
+            : NativeDetector.Automation.FromHandle(mainWindowHandle);
     }
 
     public override void Record(object component)
@@ -53,10 +53,10 @@ public class UiaAccessible : Accessible
         uiaComponents.Push(Detector.DtoAccessibleComponent(currentComponent, this)!);
         while (currentComponent.Parent != null)
         {
-            if (currentComponent.Parent.Equals(NativeIdentity.DesktopElement))
+            if (currentComponent.Parent.Equals(NativeDetector.DesktopElement))
                 break;
-            currentComponent = NativeIdentity.TreeWalker.GetParent(currentComponent);
-            uiaComponents.Push(NativeIdentity.DtoAccessibleComponent(currentComponent, this)!);
+            currentComponent = NativeDetector.TreeWalker.GetParent(currentComponent);
+            uiaComponents.Push(NativeDetector.DtoAccessibleComponent(currentComponent, this)!);
         }
 
         Components = uiaComponents;
@@ -77,7 +77,7 @@ public class UiaAccessible : Accessible
             foundElement = parentElement.FindFirstDescendant(condition);
             if (foundElement == null)
             {
-                parentElement = NativeIdentity.TreeWalker.GetParent(parentElement);
+                parentElement = NativeDetector.TreeWalker.GetParent(parentElement);
                 foundElement = parentElement.FindFirstChild(condition);
             }
 
