@@ -44,6 +44,11 @@ public class UiaAccessibleDetector : AccessibleDetector
         return DtoAccessibleComponent(hoveredElement);
     }
 
+    public override Task<AccessibleComponent?> FromPointAsync(Point location)
+    {
+        throw new NotImplementedException();
+    }
+
     public override AccessibleComponent? DtoAccessibleComponent(object element, Accessible? accessibility = null)
     {
         if (element is not AutomationElement automationElement) return null;
