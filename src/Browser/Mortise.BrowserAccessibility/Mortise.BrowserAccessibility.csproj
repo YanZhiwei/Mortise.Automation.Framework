@@ -7,14 +7,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
 	  <Nullable>enable</Nullable>
   </PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Tenon.Serialization.Abstractions" Version="0.0.1-alpha-202406271301" />
+		<PackageReference Include="Tenon.Serialization.Json" Version="0.0.1-alpha-202406271301" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Tenon.Serialization.Abstractions" Version="0.0.1-alpha-202406271301" />
-    <PackageReference Include="Tenon.Serialization.Json" Version="0.0.1-alpha-202406271301" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Mortise.Accessibility.Abstractions\Mortise.Accessibility.Abstractions.csproj" />
-  </ItemGroup>
-
+	<ItemGroup>
+		<ProjectReference Include="..\..\Mortise.Accessibility.Abstractions\Mortise.Accessibility.Abstractions.csproj" />
+	</ItemGroup>
 </Project>
