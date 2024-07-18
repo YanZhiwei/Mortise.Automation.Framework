@@ -34,6 +34,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mortise.Platform.Windows", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mortise.Platform.Linux", "src\Mortise.Platform.Linux\Mortise.Platform.Linux.csproj", "{4EF3D4AD-F7D0-4B6E-A9BF-C65FF4C95B06}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mortise.ChromiumAccessibility", "src\Browser\Mortise.ChromiumAccessibility\Mortise.ChromiumAccessibility.csproj", "{2CB367CC-3D83-4319-B9F2-00A9F7B006F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -92,6 +94,10 @@ Global
 		{4EF3D4AD-F7D0-4B6E-A9BF-C65FF4C95B06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EF3D4AD-F7D0-4B6E-A9BF-C65FF4C95B06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EF3D4AD-F7D0-4B6E-A9BF-C65FF4C95B06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CB367CC-3D83-4319-B9F2-00A9F7B006F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CB367CC-3D83-4319-B9F2-00A9F7B006F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CB367CC-3D83-4319-B9F2-00A9F7B006F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CB367CC-3D83-4319-B9F2-00A9F7B006F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -102,6 +108,7 @@ Global
 		{2F9B1F30-F7BC-416C-BC2D-44FDC7D24FCF} = {B524BD24-3F72-4EB9-A3ED-EFBD39D86211}
 		{0267B422-302F-4138-A5D2-7C5547766953} = {B524BD24-3F72-4EB9-A3ED-EFBD39D86211}
 		{C6D5A33A-1BC0-4868-B63A-D1416C868088} = {F8E5F417-1060-4972-8FEE-886F38D3D5A8}
+		{2CB367CC-3D83-4319-B9F2-00A9F7B006F7} = {F8E5F417-1060-4972-8FEE-886F38D3D5A8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B2EB6DC1-0698-48D8-AD43-BFE923CC54EB}

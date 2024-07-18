@@ -29,17 +29,20 @@ public abstract class Request<TRes>
 
     private async Task OnContinueExecuteRequestAsync(Response<TRes> response)
     {
-        var iframes = response.Frame.Child;
-        foreach (var iframe in iframes)
+        var iframes = response.Frame?.Child;
+        if (iframes?.Any() ?? false)
         {
-            var iframeResponse = await ContinueEvaluateAsync(iframe);
-            if (iframeResponse.Ok)
+            foreach (var iframe in iframes)
             {
-                Response = iframeResponse;
-                break;
-            }
+                var iframeResponse = await ContinueEvaluateAsync(iframe);
+                if (iframeResponse.Ok)
+                {
+                    Response = iframeResponse;
+                    break;
+                }
 
-            await OnContinueExecuteRequestAsync(iframeResponse);
+                await OnContinueExecuteRequestAsync(iframeResponse);
+            }
         }
     }
 }

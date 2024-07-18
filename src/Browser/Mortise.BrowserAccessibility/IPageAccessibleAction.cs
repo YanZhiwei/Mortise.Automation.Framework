@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using Mortise.BrowserAccessibility.Models;
 using Mortise.BrowserAccessibility.Options;
 
 namespace Mortise.BrowserAccessibility;
@@ -31,5 +32,5 @@ public interface IPageAccessibleAction
 
     public Task<bool> Ping();
 
-    public Task ElementFromPoint(Point location);
+    public Task<Response<DomRect>> ElementFromPointAsync(Point location);
 }

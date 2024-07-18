@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Diagnostics;
+using System.Drawing;
 
 namespace Mortise.Platform;
 
@@ -10,4 +11,6 @@ public interface ISystemInteraction
     /// <param name="point">Point</param>
     /// <returns>窗口句柄</returns>
     public IntPtr GetWindowHandle(Point point = default);
+
+    Process GetProcess(Point location);
 }
