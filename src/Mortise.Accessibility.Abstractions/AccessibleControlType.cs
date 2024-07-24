@@ -130,5 +130,84 @@ public enum AccessibleControlType
     TreeItem,
 
     /// <summary>Identifies the Window control type.</summary>
-    Window
+    Window,
+
+    Link,
+
+    /// <summary>Identifies the TableRow control type.</summary>
+    TableRow,
+
+    /// <summary>Identifies the TableColumn control type.</summary>
+    TableColumn,
+
+    /// <summary>Identifies the TableColumnHeader control type.</summary>
+    TableColumnHeader,
+
+    /// <summary>Identifies the TableRowHeader control type.</summary>
+    TableRowHeader,
+
+    /// <summary>Identifies the TableCell control type.</summary>
+    TableCell,
+
+    /// <summary>Identifies the TableCaption control type.</summary>
+    TableCaption,
+
+    /// <summary>Identifies the TableSummary control type.</summary>
+    TableSummary,
+  
+    Paragraph,
+    Form,
+    Video,
+    Audio,
+    IFrame,
+    Canvas,
+    Svg,
+    TextBox,
+    Label,
+    ListBox,
+    ListView,
+    TreeView,
+    TreeViewItem,
+    TreeViewList,
+    TreeViewListItem,
+    TreeViewListItemExpander,
+    TreeViewListItemCheckBox,
+    TreeViewListItemLabel,
+    TreeViewListItemIcon,
+    TreeViewListItemDescription,
+    Dialog,
+    DialogTitle,
+    Article,
+    Aside,
+    BlockQuote,
+    DescriptionList,
+    DescriptionTerm,
+    DescriptionValue,
+    Figure,
+    Caption,
+    Footer,
+    Main,
+    Navigation,
+    Section,
+    Time,
+    Code,
+    Pre,
+    Sample,
+    Keyboard,
+    Variable,
+    Quote,
+    Citation,
+    Abbreviation,
+    Bold,
+    Italic,
+    Underline,
+    Strikethrough,
+    Mark,
+    Small,
+    Subscript,
+    Superscript,
+    BidiIsolate,
+    BidiOverride,
+    LineBreak,
+    Legend
 }
