@@ -1,9 +1,9 @@
 ﻿using System.Collections.Concurrent;
 using System.Drawing;
 using Mortise.Accessibility.Abstractions;
+using Mortise.Browser.Platform;
 using Mortise.BrowserAccessibility;
 using Mortise.BrowserAccessibility.Options;
-using Mortise.Platform;
 using Tenon.Mapper.Abstractions;
 
 namespace Mortise.ChromiumAccessibility;

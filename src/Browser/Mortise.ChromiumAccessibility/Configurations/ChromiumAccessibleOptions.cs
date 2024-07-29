@@ -1,5 +1,5 @@
-﻿using Mortise.BrowserAccessibility;
-using Mortise.Platform;
+﻿using Mortise.Browser.Platform;
+using Mortise.BrowserAccessibility;
 
 namespace Mortise.ChromiumAccessibility.Configurations;
 
