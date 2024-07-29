@@ -17,7 +17,7 @@ public interface IBrowserAccessibleContext
     ///     获取RenderWidget矩形框
     /// </summary>
     /// <returns></returns>
-    public Rectangle GetRenderingBoundingRectangle();
+    public Rectangle GetPageRenderRectangle();
 
     public void SetMaximize();
 

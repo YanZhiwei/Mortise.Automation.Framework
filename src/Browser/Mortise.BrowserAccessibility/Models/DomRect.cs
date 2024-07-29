@@ -1,4 +1,6 @@
-﻿namespace Mortise.BrowserAccessibility.Models;
+﻿using System.Drawing;
+
+namespace Mortise.BrowserAccessibility.Models;
 
 public sealed class DomRect
 {
@@ -8,4 +10,7 @@ public sealed class DomRect
     public int Height { get; set; }
     public int FrameOffsetX { get; set; }
     public int FrameOffsetY { get; set; }
+    public string TagName { get; set; }
+
+    public Point Location => new(X, Y);
 }
