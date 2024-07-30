@@ -32,5 +32,5 @@ public interface IPageAccessibleAction
 
     public Task<bool> Ping();
 
-    public Task<Response<DomRect>> ElementFromPointAsync(Point location);
+    public Task<Response<Dom>> ElementFromPointAsync(Point location);
 }

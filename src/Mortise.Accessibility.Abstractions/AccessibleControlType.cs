@@ -209,5 +209,18 @@ public enum AccessibleControlType
     BidiIsolate,
     BidiOverride,
     LineBreak,
-    Legend
+    Legend,
+    Heading,
+    Div,
+    Input,
+    TextArea,
+    Select,
+    Option,
+    FileUpload,
+    ImageButton,
+    SubmitButton,
+    P,
+    Textarea,
+    Span,
+
 }
