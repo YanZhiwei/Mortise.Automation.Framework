@@ -61,4 +61,3 @@ jobs:
             Write-Host "Processing file: $($file.FullName)"
             dotnet nuget push $file --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate --source https://api.nuget.org/v3/index.json
           }
-            }
