@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Tenon.Infra.Windows.Win32" Version="0.0.1-alpha-202410131500" />
+    <PackageReference Include="Tenon.Infra.Windows.Win32" Version="0.0.1-alpha-202410281339" />
   </ItemGroup>
 
   <ItemGroup>
